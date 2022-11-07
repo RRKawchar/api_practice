@@ -132,7 +132,7 @@ class _Practice4Screen2State extends State<Practice4Screen2> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: const [
                             Text("Category"),
                             Text("Show All")
                           ],
@@ -142,7 +142,7 @@ class _Practice4Screen2State extends State<Practice4Screen2> {
                                child: CircularProgressIndicator(),
                             ):
                            SizedBox(
-                             height: 100,
+                             height: 210,
                              child: ListView.builder(
                                itemCount: productList.length,
                                shrinkWrap: true,
@@ -153,8 +153,20 @@ class _Practice4Screen2State extends State<Practice4Screen2> {
                                      padding: const EdgeInsets.all(8.0),
                                      child: Column(
                                        children: [
-                                         // Image.network(productList[index].images!.src.toString()),
-                                         Text(productList[index].name.toString()),
+
+
+                                         Container(
+                                           child: Column(
+                                             children: [
+                                               Image.network(productList[index].images![index].src.toString(),width: 100,height: 100,),
+                                               Container(
+                                                   height: 50,
+                                                   width: 50,
+                                                   child: Text(productList[index].name.toString(),maxLines: 3,)),
+                                             ],
+                                           ),
+                                         ),
+
                                        ],
                                      ),
                                    );
