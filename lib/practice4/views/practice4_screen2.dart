@@ -72,9 +72,7 @@ class _Practice4Screen2State extends State<Practice4Screen2> {
                 ),
                 Expanded(
                     child: ListView(
-
                       children: [
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -154,18 +152,17 @@ class _Practice4Screen2State extends State<Practice4Screen2> {
                                      child: Column(
                                        children: [
 
-
                                          Container(
                                            child: Column(
                                              children: [
-                                               Image.network(productList[index].images![index].src.toString(),width: 100,height: 100,),
+                                               buildImage(MediaQuery.of(context).size, context, productList[index].images![0].src),
                                                Container(
                                                    height: 50,
                                                    width: 50,
                                                    child: Text(productList[index].name.toString(),maxLines: 3,)),
                                              ],
                                            ),
-                                         ),
+                                         )
 
                                        ],
                                      ),
@@ -282,5 +279,42 @@ class _Practice4Screen2State extends State<Practice4Screen2> {
   }
 
 
-
+  Widget buildImage(Size size, BuildContext context, imgUrl){
+    return Container(
+      height: size.height*0.2,
+      width: size.height*0.2,
+      child: Center(
+          child: imgUrl==null?
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.image_not_supported,size: size.height*0.1,),
+            ],
+          )
+              :
+          CachedNetworkImage(
+            imageUrl: "$imgUrl",
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      offset: const Offset(0.0, 2.0),
+                      blurRadius: 5
+                  )
+                ],
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  colorFilter: const ColorFilter.mode(Colors.black12, BlendMode.colorBurn),
+                ),
+              ),
+            ),
+            placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          )
+      ),
+    );
+  }
 }

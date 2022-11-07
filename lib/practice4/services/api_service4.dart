@@ -46,9 +46,7 @@ class ApiService4{
   
   
   Future<List<Product>?> productApi()async{
-
     try{
-
       String username="ck_6d11cf7d09ea4c5dbe11b0c52abcd1c789df4344";
       String uPass="cs_96acb214fe51ea3bde37340e6f74fac3fde1b3ec";
       String basicAuth='Basic ${base64.encode(utf8.encode('$username:$uPass'))}';
